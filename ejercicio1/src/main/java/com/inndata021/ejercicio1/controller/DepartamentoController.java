@@ -1,0 +1,40 @@
+package com.inndata021.ejercicio1.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.inndata021.ejercicio1.entity.Departamento;
+import com.inndata021.ejercicio1.service.implementacion.DepartamentoService;
+
+@RestController
+@RequestMapping("/api/v1")
+
+public class DepartamentoController {
+    @Autowired
+    DepartamentoService departamentoService;
+    /*peticiones del protocolo REST
+    get para leer, post para crear, put para actualizar y delete es para borrar */
+    @GetMapping("/departamentos")
+    public List<Departamento> readAll(){
+        return departamentoService.readAll();
+    }
+
+    @GetMapping("/departamentos/{id}")
+    public Departamento readById(@PathVariable Integer id){
+        return departamentoService.reabById(id);
+    }
+
+    @PostMapping("/departamentos")
+    public Departamento create(@RequestBody Departamento departamento){
+        return departamentoService.create(departamento);
+    }
+
+    
+}
