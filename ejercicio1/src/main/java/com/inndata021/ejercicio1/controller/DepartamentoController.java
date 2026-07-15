@@ -3,15 +3,19 @@ package com.inndata021.ejercicio1.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.inndata021.ejercicio1.entity.Departamento;
 import com.inndata021.ejercicio1.service.implementacion.DepartamentoService;
+
+import jakarta.websocket.server.PathParam;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -34,6 +38,16 @@ public class DepartamentoController {
     @PostMapping("/departamentos")
     public Departamento create(@RequestBody Departamento departamento){
         return departamentoService.create(departamento);
+    }
+
+    @PutMapping("/departamentos")
+    public Departamento updateById(@PathParam("id") Integer id, @RequestBody Departamento departamento){
+        return departamentoService.updateById(id, departamento);
+    }
+
+    @DeleteMapping("/departamentos")
+    public String deleteById(@PathParam("id") Integer id){
+        return departamentoService.deleteById(id);
     }
 
     
