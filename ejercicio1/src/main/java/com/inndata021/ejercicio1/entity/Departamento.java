@@ -6,6 +6,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+//Annotation de lombok
+@AllArgsConstructor //Constructor con todos los argumentos
+@NoArgsConstructor //Constructor sin argumentos o vacio
+@Data     //getter y setter
 
 @Entity
 @Table(name = "departamento")
@@ -21,36 +28,6 @@ public class Departamento {
     @Column(name = "precio")
     private Double precio;
 
-    public Departamento() {
-    }
-
-    public Departamento(Integer id, Integer m2, Double precio) {
-        this.id = id;
-        this.m2 = m2;
-        this.precio = precio;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getM2() {
-        return m2;
-    }
-
-    public void setM2(Integer m2) {
-        this.m2 = m2;
-    }
-
-    public Double getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(Double precio) {
-        this.precio = precio;
-    }
+    @Column(name = "activo")
+    private Boolean activo=true;
 }

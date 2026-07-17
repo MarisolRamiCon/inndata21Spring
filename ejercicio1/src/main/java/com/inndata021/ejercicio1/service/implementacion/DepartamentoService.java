@@ -15,7 +15,7 @@ public class DepartamentoService implements IDepartamentoService {
     DepartamentoRepository departamentoRepository;
     @Override
     public List<Departamento> readAll() {
-        return departamentoRepository.findAll();
+        return departamentoRepository.findAll().stream().filter(departamento-> departamento.getActivo()).toList();
     }
     @Override
     public Departamento reabById(Integer id) {
@@ -23,6 +23,7 @@ public class DepartamentoService implements IDepartamentoService {
     }
     @Override
     public Departamento create(Departamento departamento) {
+        departamento.setActivo(true);
         return departamentoRepository.save(departamento);
     }
     @Override
@@ -44,7 +45,8 @@ public class DepartamentoService implements IDepartamentoService {
         Optional<Departamento> departamentoABorrar= departamentoRepository.findById(id);
         if(departamentoABorrar.isPresent()){
             Departamento departamento= departamentoABorrar.get();
-            departamentoRepository.delete(departamento);
+            departamento.setActivo(false);
+            departamentoRepository.save(departamento);
             return "Departamento borrado";
         }else{
             return "Departamento no encontrado";

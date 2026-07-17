@@ -9,6 +9,6 @@ public interface IDepartamentoService {
     public Departamento reabById(Integer id);
     public Departamento create(Departamento departamento);
     public Departamento updateById(Integer id, Departamento departamento);
-    //borrado físico
+    //borrado lógico
     public String deleteById(Integer id);
 }
