@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.inndata021.ejercicio1.dto.DepartamentoResponse;
 import com.inndata021.ejercicio1.entity.Departamento;
 import com.inndata021.ejercicio1.service.implementacion.DepartamentoService;
 
@@ -50,5 +51,19 @@ public class DepartamentoController {
         return departamentoService.deleteById(id);
     }
 
+   @GetMapping("/departamentosPrecio")
+   public List<DepartamentoResponse> departamentosBaratos(@PathParam("precio") Double precio){
+        return departamentoService.departamentosBaratos(precio);
+   } 
+
+   @GetMapping("/precioAndM2")
+   public List<DepartamentoResponse> precioAndM2(@PathParam("precio") Double precio,@PathParam("m2") Integer m2){
+        return departamentoService.precioAndM2(precio, m2);
+   }
+
+   @GetMapping("/precioActivo")
+   public List<Departamento> precioActivo(@PathParam("precio") Double precio, @PathParam("activo") Boolean activo){
+    return departamentoService.precioActivo(precio, activo);
+   }
     
 }

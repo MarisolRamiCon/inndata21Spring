@@ -23,7 +23,7 @@ public class Departamento {
     private Integer id;
 
     @Column(name = "m2")
-    private Integer m2;
+    private Integer m2; //metros2
 
     @Column(name = "precio")
     private Double precio;

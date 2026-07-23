@@ -6,4 +6,5 @@ import com.inndata021.ejercicio1.entity.Persona;
 
 public interface PersonaRepository extends JpaRepository<Persona,Integer>{
     
+    
 }

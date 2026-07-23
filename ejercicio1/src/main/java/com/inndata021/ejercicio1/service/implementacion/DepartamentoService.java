@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.inndata021.ejercicio1.entity.Departamento;
 import com.inndata021.ejercicio1.repository.DepartamentoRepository;
+
+import com.inndata021.ejercicio1.dto.DepartamentoResponse;
 import com.inndata021.ejercicio1.service.IDepartamentoService;
 @Service
 public class DepartamentoService implements IDepartamentoService {
@@ -25,6 +27,7 @@ public class DepartamentoService implements IDepartamentoService {
     public Departamento create(Departamento departamento) {
         departamento.setActivo(true);
         return departamentoRepository.save(departamento);
+
     }
     @Override
     public Departamento updateById(Integer id,Departamento departamento) {
@@ -51,6 +54,36 @@ public class DepartamentoService implements IDepartamentoService {
         }else{
             return "Departamento no encontrado";
         }
+    }
+    @Override
+    public List<DepartamentoResponse> departamentosBaratos(Double precio) {
+       return departamentoRepository.findByPrecioLessThan(precio).stream().map(
+        departamento ->{
+            //Instancias un DepartamentoResponse
+            DepartamentoResponse departamentoResponse= new DepartamentoResponse();
+            departamentoResponse.setId(departamento.getId());
+            departamentoResponse.setM2(departamento.getM2());
+            departamentoResponse.setPrecio(departamento.getPrecio());
+            return departamentoResponse;
+        }
+       ).toList();
+    }
+
+    @Override
+    public List<DepartamentoResponse> precioAndM2(Double precio, Integer m2){
+        return departamentoRepository.findByPrecioLessThanAndM2GreaterThan(precio, m2).stream().map(
+            departamento -> {
+                DepartamentoResponse departamentoResponse= new DepartamentoResponse();
+            departamentoResponse.setId(departamento.getId());
+            departamentoResponse.setM2(departamento.getM2());
+            departamentoResponse.setPrecio(departamento.getPrecio());
+            return departamentoResponse;
+            }
+        ).toList();
+    }
+    @Override
+    public List<Departamento> precioActivo(Double precio, Boolean activo) {
+        return departamentoRepository.precioActivo(precio, activo);
     }
     
     
