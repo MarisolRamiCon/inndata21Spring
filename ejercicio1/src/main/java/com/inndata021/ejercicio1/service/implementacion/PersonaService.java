@@ -39,9 +39,8 @@ public class PersonaService implements IPersonaService {
         Persona personaACrear= new Persona();
         personaACrear.setNombre(persona.getNombre());
         personaACrear.setDireccion(persona.getDireccion());
-        personaACrear.setEdad(persona.getEdad());
-        Departamento departamento=departamentoRepository.findById(persona.getIdDepartamento()).orElse(null);
-        personaACrear.setIdDepartamento(departamento);
+        Departamento departamento=departamentoRepository.findById(persona.getIdDepartamento()).orElse(null);            personaACrear.setIdDepartamento(departamento);
+        personaACrear.setEdad(0);
         //Guardar en el repositorio
         personaRepository.save(personaACrear);
         //Ahora se crea la respuesta
@@ -51,11 +50,12 @@ public class PersonaService implements IPersonaService {
         //edad idDepartamento
         personaResponse.setEdad(personaACrear.getEdad());
         if(personaACrear.getIdDepartamento()!=null){
-            personaResponse.setIdDepartamento(personaACrear.getIdDepartamento().getId());
-
+        personaResponse.setIdDepartamento(personaACrear.getIdDepartamento().getId());
         }
-        
         return personaResponse;
-       }
-    
+    }
+    @Override
+    public List<Persona> findByIdIs(Integer id) {
+        return personaRepository.findByIdPersonaIs(id);
+    }
 }
